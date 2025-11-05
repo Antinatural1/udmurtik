@@ -1,0 +1,8 @@
+<p class="title">Удмуртия</p>
+<div id="result-form"></div>
+<script>
+    $(document).ready(function() {
+        $.post('./php/udmurt.php', function(data) {$('#result-form').html(data)})
+        return false
+    })
+</script>

@@ -1,0 +1,64 @@
+<form class="login-block" id="login-form">
+    <p class="title">Добавление точки</p>
+    <div class="login-fields" style="grid-template-columns: 1fr 4fr;">
+        <p class="login-text">Экскурсия:</p>
+        <div class="route-list"></div>
+    </div>
+    <input name="img" type="file" accept=".jpg, .png" 
+    class="sight-img" id="sights-inp" style="visibility: hidden;" required>
+    <div class="sights-block-input">
+        <label for="sights-inp" class="sights-input">Загрузить фото</label>
+        <textarea name="desc" class="sights-desc-input" placeholder="Описание..." required></textarea>
+    </div>
+    <div style="display: flex; gap: 50px; justify-content: center;">
+        <input type="submit" class="submit2 login-btn">
+        <input type="reset" class="submit1" id="sights-reset">
+    </div>
+</form>
+<button class="submit1" onclick="$('main').load('./html/admin_excur.html')">Назад</button>
+<div id="result_form"></div>
+<script>
+    $(document).ready(function() {
+        $.post('./php/route_list.php', function(data){$('.route-list').html(data)})
+    })
+    $('#login-form').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            url: './php/admin_add_point.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(data) {
+                alert('Вы успешно добавили новую точку!')
+                $('main').load('./html/admin_add_point.html')
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                $('#result-form').html('Ошибка при отправке файла: ' + textStatus);
+            }
+        });
+    })
+    $('.sight-img').on('change', function() {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+    
+          reader.onload = function(e) {
+            $('.sights-input').css(
+                'background-image', 'url(' + e.target.result + ')',
+            )
+            $('.sights-input').html('');
+          };
+          reader.readAsDataURL(file);
+        } 
+        else {
+            $('.sights-input').html('Загрузить фото')
+            $('.sights-input').css('background-image', 'none')
+        }
+    })
+    $('#sights-reset').click(function() {
+        $('.sights-input').html('Загрузить фото')
+        $('.sights-input').css('background-image', 'none')
+    })
+</script>

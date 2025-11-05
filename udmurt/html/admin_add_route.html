@@ -1,0 +1,43 @@
+<form class="login-block" id="login-form">
+    <p class="title">Добавление маршрута</p>
+    <div class="login-fields" style="grid-template-columns: 1fr 2fr;">
+        <p class="login-text">Название:</p>
+        <input type="text" id="name" required>
+        <p class="login-text">Место старта:</p>
+        <input type="text" id="point" required>
+        <p class="login-text">Дата:</p>
+        <input type="date" id="date" required>
+        <p class="login-text">Количество дней:</p>
+        <input type="number" id="days" min="1" required>
+        <p class="login-text">Количество мест:</p>
+        <input type="number" id="seats" min="1" required>
+        <p class="login-text">Возрастное ограничение:</p>
+        <input type="text" id="age" required>
+        <p class="login-text">Цена:</p>
+        <input type="number" id="price" min="1" required>
+    </div>
+    <div style="display: flex; gap: 50px; justify-content: center;">
+        <input type="submit" class="submit2 login-btn">
+        <input type="reset" class="submit1">
+    </div>
+</form>
+<button class="submit1" onclick="$('main').load('./html/admin_excur.html')">Назад</button>
+<div id="result_form"></div>
+<script>
+    $('#login-form').submit(function() {
+        $.post('./php/admin_add_route.php', {
+            name: $('#name').val(),
+            point: $('#point').val(),
+            date: $('#date').val(),
+            days: $('#days').val(),
+            age: $('#age').val(),
+            price: $('#price').val(),
+            seats: $('#seats').val()
+            },
+            function (data) {
+            $("#result_form").html(data);
+            }
+        )
+        return false;
+    })
+</script>

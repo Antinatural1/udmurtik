@@ -1,0 +1,59 @@
+<p class="title">Достопримечательности</p>
+<form class="sights-block">
+    <p class="title">Пополнить список достопримечательностей</p>
+    <input name="img" type="file" accept=".jpg, .png" 
+    class="sight-img" id="sights-inp" style="visibility: hidden;" required>
+    <div class="sights-block-input">
+        <label for="sights-inp" class="sights-input">Загрузить фото</label>
+        <textarea name="desc" class="sights-desc-input" placeholder="Описание..." required></textarea>
+    </div>
+    <input type="submit" class="submit1">
+    <input type="reset" class="submit1" id="sights-reset">
+</form>
+<div class="sights-content">
+</div>
+<div id="res"></div>
+<script>
+    $(document).ready(function() {
+        $.post('./php/sights.php', function(data) {$('.sights-content').html(data)})
+        $('.sights-block').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                url: './php/sights_insert.php',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    $('#res').html(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#res').html('Ошибка при отправке файла: ' + textStatus);
+                }
+            });
+        })
+    });
+    $('.sight-img').on('change', function() {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+    
+          reader.onload = function(e) {
+            $('.sights-input').css(
+                'background-image', 'url(' + e.target.result + ')',
+            )
+            $('.sights-input').html('');
+          };
+          reader.readAsDataURL(file);
+        } 
+        else {
+            $('.sights-input').html('Загрузить фото')
+            $('.sights-input').css('background-image', 'none')
+        }
+    })
+    $('#sights-reset').click(function() {
+        $('.sights-input').html('Загрузить фото')
+        $('.sights-input').css('background-image', 'none')
+    })
+</script>

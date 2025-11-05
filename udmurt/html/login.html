@@ -1,0 +1,28 @@
+<form class="login-block" id="login-form">
+    <p class="title">Вход</p>
+    <div class="login-fields">
+        <p class="login-text">Email:</p>
+        <input type="email" id="email" required>
+        <p class="login-text">Пароль:</p>
+        <input type="password" id="pass" required>
+    </div>
+    <div class="login-nav">
+        <input type="submit" class="submit2 login-btn" value="Войти">
+        <p class="login-nav-text">Ещё нет аккаунта?</p>
+        <button class="submit1" onclick="$('main').load('./html/register.html');">Зарегистрироваться</button>
+    </div>
+</form>
+<div id="result_form"></div>
+<script>
+    $('#login-form').submit(function() {
+        $.post('./php/login.php', {
+            email: $('#email').val(),
+            pass: $('#pass').val(),
+            },
+            function (data) {
+            $("#result_form").html(data);
+            }
+        )
+        return false;
+    })
+</script>

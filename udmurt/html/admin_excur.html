@@ -1,0 +1,32 @@
+<div style="display: flex; justify-content: space-between;">
+    <p class="title">Экскурсии</p>
+</div>
+<div class="find">
+    <input type="search" class="search-excur">
+    <button class="submit1 search-btn">Найти</button>
+    <button class="submit2" style="margin-left: 200px;" onclick="$('main').load('./html/admin_add_route.html')">Добавить маршрут</button>
+    <button class="submit1" onclick="$('main').load('./html/admin_add_excur.html')">Добавить экскурсию</button>
+    <button class="submit2" onclick="$('main').load('./html/admin_add_point.html')">Добавить точку</button>
+</div>
+<div id="result_form"></div>
+<script>
+    $(document).ready(function() {
+        $.post('./php/admin_find.php', {
+            field: ''
+            },
+            function (data) {
+            $("#result_form").html(data);
+            }
+        )
+        $('.search-btn').click(function () {
+            $.post('./php/admin_find.php', {
+            field: $('.search-excur').val()
+            },
+            function (data) {
+            $("#result_form").html(data);
+            }
+            )
+            return false
+        })
+    })
+</script>    

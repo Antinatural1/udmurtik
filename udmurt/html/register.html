@@ -1,0 +1,43 @@
+<form class="login-block" id="reg-form">
+    <p class="title">Регистрация</p>
+    <div class="register-fields">
+        <p class="login-text">Фамилия:</p>
+        <input type="text" id="last_name" required pattern="^[А-Яа-яЁёA-Za-z]+$">
+        <p class="login-text">Имя:</p>
+        <input type="text" id="first_name" required pattern="^[А-Яа-яЁёA-Za-z]+$">
+        <p class="login-text">Отчество:</p>
+        <input type="text" id="patronymic" required pattern="^[А-Яа-яЁёA-Za-z]+$">
+        <p class="login-text">Дата рождения:</p>
+        <input type="date" id="birth_date" required>
+        <p class="login-text">Email:</p>
+        <input type="email" id="email" required>
+        <p class="login-text">Пароль:</p>
+        <input type="password" id="pass" required minlength="3">
+        <p class="login-text">Повторите пароль:</p>
+        <input type="password" id="pass2" required minlength="3">
+    </div>
+    <div class="login-nav">
+        <input type="submit" id="login" class="submit2 login-btn" value="Зарегистрироваться">
+        <p class="login-nav-text">Уже зарегистрированы?</p>
+        <button class="submit1" onclick="$('main').load('./html/login.html');">Войти</button>
+    </div>
+</form>
+<div id="result_form"></div>
+<script>
+    $('#login').click(function() {
+        $.post('./php/register.php', {
+            first_name: $('#first_name').val(),
+            last_name: $('#last_name').val(),
+            patronymic: $('#patronymic').val(),
+            email: $('#email').val(),
+            birth_date: $('#birth_date').val(),
+            pass: $('#pass').val(),
+            pass2: $('#pass2').val()
+            },
+            function (data) {
+            $("#result_form").html(data);
+            }
+        )
+        return false;
+    })
+</script>

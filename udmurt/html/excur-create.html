@@ -1,0 +1,43 @@
+<div style="display: flex; justify-content: space-between;">
+    <p class="title">Создание экскурсии</p>
+    <button class="main-btn" onclick="$('main').load('./html/excur.html');">К списку экскурсий</button>
+</div>
+<div class="excur-create-block">
+    <div class="excur-create-field">
+        <input type="text">
+        <p>Название:</p>
+    </div>
+    <div class="excur-create-field">
+        <input type="text">
+        <p>Место старта:</p>
+    </div>
+    <div class="excur-create-field">
+        <input type="text">
+        <p>Дата начала:</p>
+    </div>
+    <div class="excur-create-field">
+        <input type="text">
+        <p>Время начала:</p>
+    </div>
+    <div class="excur-create-field">
+        <input type="text">
+        <p>Количество дней:</p>
+    </div>
+    <div class="excur-create-field">
+        <input type="text">
+        <p>Количество мест:</p>
+    </div>
+    <div class="excur-create-field">
+        <input type="text">
+        <p>Возрастное ограничение:</p>
+    </div>
+    <div class="excur-create-field">
+        <div>
+            <label class="excur-create-input" for="excur-create-inp">Загрузить фото</label>
+            <input type="text" placeholder="Описание">
+            <input type="file" accept=".jpg, .png" id="excur-create-inp" style="visibility: hidden;">
+        </div>
+        <p>Точки маршрута:</p>
+    </div>
+    <input type="submit" value="Сохранить" class="submit2">
+</div>

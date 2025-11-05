@@ -1,0 +1,9 @@
+<p class="title">Достопримечательности</p>
+<div class="sights-content">
+</div>
+<div id="res"></div>
+<script>
+    $(document).ready(function() {
+        $.post('./php/sights.php', function(data) {$('.sights-content').html(data)})
+    });
+</script>

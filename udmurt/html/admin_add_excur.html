@@ -1,0 +1,31 @@
+<form class="login-block" id="login-form">
+    <p class="title">Добавление экскурсии</p>
+    <div class="login-fields" style="grid-template-columns: 1fr 3fr;">
+        <p class="login-text">Маршрут:</p>
+        <div class="route-list"></div>
+        <p class="login-text">Время начала:</p>
+        <input type="time" id="time" required>
+    </div>
+    <div style="display: flex; gap: 50px; justify-content: center;">
+        <input type="submit" class="submit2 login-btn" id="add-excur">
+        <input type="reset" class="submit1">
+    </div>
+</form>
+<button class="submit1" onclick="$('main').load('./html/admin_excur.html')">Назад</button>
+<div id="result_form"></div>
+<script>
+    $('#add-excur').click(function() {
+        $.post('./php/admin_add_excur.php', {
+            id_route: $('#route').val(),
+            time: $('#time').val(),
+            },
+            function (data) {
+            $("#result_form").html(data);
+            }
+        )
+        return false;
+    })
+    $(document).ready(function() {
+        $.post('./php/route_list.php', function(data){$('.route-list').html(data)})
+    })
+</script>

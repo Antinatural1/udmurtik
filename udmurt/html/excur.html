@@ -1,0 +1,14 @@
+<div style="display: flex; justify-content: space-between;">
+    <p class="title">Экскурсии</p>
+</div>
+<div id="result_form"></div>
+<script>
+    $(document).ready(function() {
+        $.post('./php/excur.php',
+            function (data) {
+            $("#result_form").html(data);
+            }
+        )
+        return false;
+    })
+</script>    

@@ -1,0 +1,26 @@
+<form class="login-block" id="login-form">
+    <p class="title">Вход</p>
+    <div class="login-fields">
+        <p class="login-text">Email:</p>
+        <input type="text" id="email" required>
+        <p class="login-text">Пароль:</p>
+        <input type="password" id="pass" required>
+    </div>
+    <div class="login-nav">
+        <input type="submit" class="submit2 login-btn" value="Войти">
+    </div>
+</form>
+<div id="result_form"></div>
+<script>
+    $('#login-form').submit(function() {
+        $.post('./php/admin_login.php', {
+            email: $('#email').val(),
+            pass: $('#pass').val(),
+            },
+            function (data) {
+            $("#result_form").html(data);
+            }
+        )
+        return false;
+    })
+</script>
